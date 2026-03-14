@@ -4,12 +4,127 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>S.A Trades — Electrical & Hardware Shop | Siwan, Bihar</title>
+  <title>S.A Trades — Electrical, Hardware, Plumbing & Paint Shop | Siwan, Bihar</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link
     href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap"
     rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
+  <style>
+    :root {
+      --amber: #fbbf24;
+      --amber-light: #fcd34d;
+      --amber-dark: #d97706;
+    }
+
+    .font-display { font-family: 'Bebas Neue', sans-serif; }
+    .font-mono { font-family: 'Space Mono', monospace; }
+    .font-sans { font-family: 'DM Sans', sans-serif; }
+
+    .grid-bg {
+      background-image:
+        linear-gradient(rgba(251,191,36,0.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(251,191,36,0.07) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+
+    /* Navbar scroll effect */
+    #navbar.scrolled {
+      background: rgba(9,9,11,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(63,63,70,0.5);
+    }
+
+    /* Scroll dot animation */
+    @keyframes scrollPulse {
+      0%,100% { opacity:1; transform: scaleY(1); }
+      50% { opacity:0.3; transform: scaleY(0.5); }
+    }
+    .scroll-dot { animation: scrollPulse 2s ease-in-out infinite; }
+
+    /* Filter buttons */
+    .filter-btn {
+      color: #a1a1aa;
+      border-color: #3f3f46;
+      background: transparent;
+    }
+    .filter-btn:hover, .filter-btn.active {
+      color: #fbbf24;
+      border-color: #fbbf24;
+      background: rgba(251,191,36,0.08);
+    }
+
+    /* Product card */
+    .product-card {
+      background: #18181b;
+      border: 1px solid #27272a;
+      border-radius: 2px;
+      transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+      display: flex;
+      flex-direction: column;
+    }
+    .product-card:hover {
+      border-color: rgba(251,191,36,0.5);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 30px rgba(251,191,36,0.07);
+    }
+    .product-card.hidden { display: none; }
+
+    /* Product visual (replaces image) */
+    .product-visual {
+      aspect-ratio: 4/3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .product-visual::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(251,191,36,0.06) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    /* Category card hover line */
+    .cat-indicator { transition: width 0.5s ease; }
+
+    /* Section fade-in */
+    @keyframes fadeUp {
+      from { opacity:0; transform: translateY(20px); }
+      to   { opacity:1; transform: translateY(0); }
+    }
+    .fade-up { animation: fadeUp 0.5s ease forwards; }
+
+    /* Owner card glow */
+    .owner-card::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      background: linear-gradient(135deg, rgba(251,191,36,0.25), transparent 60%);
+      border-radius: 2px;
+      pointer-events: none;
+    }
+
+    /* Hamburger open state */
+    #menu-btn.open .ham-line:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    #menu-btn.open .ham-line:nth-child(2) { opacity: 0; }
+    #menu-btn.open .ham-line:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+    /* Badge pill */
+    .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 999px;
+    }
+  </style>
 </head>
 
 <body class="bg-zinc-950 text-white font-sans">
@@ -17,23 +132,20 @@
   <!-- ── NAV ─────────────────────────────────────────────── -->
   <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
     <div class="max-w-7xl mx-auto px-5 py-4 flex items-center justify-between">
-      <a href="#home" class="logo text-3xl tracking-widest text-amber-400 font-display">S.A TRADES</a>
-      <!-- Desktop links -->
+      <a href="#home" class="logo font-display text-3xl tracking-widest text-amber-400">S.A TRADES</a>
       <ul class="hidden md:flex gap-8 text-sm font-mono text-zinc-300 tracking-widest uppercase">
-        <li><a href="#home" class="nav-link hover:text-amber-400 transition">Home</a></li>
-        <li><a href="#categories" class="nav-link hover:text-amber-400 transition">Categories</a></li>
-        <li><a href="#products" class="nav-link hover:text-amber-400 transition">Products</a></li>
-        <li><a href="#about" class="nav-link hover:text-amber-400 transition">About</a></li>
-        <li><a href="#contact" class="nav-link hover:text-amber-400 transition">Contact</a></li>
+        <li><a href="#home" class="hover:text-amber-400 transition">Home</a></li>
+        <li><a href="#categories" class="hover:text-amber-400 transition">Categories</a></li>
+        <li><a href="#products" class="hover:text-amber-400 transition">Products</a></li>
+        <li><a href="#about" class="hover:text-amber-400 transition">About</a></li>
+        <li><a href="#contact" class="hover:text-amber-400 transition">Contact</a></li>
       </ul>
-      <!-- Hamburger -->
       <button id="menu-btn" class="md:hidden flex flex-col gap-1.5 p-2" aria-label="Open menu">
         <span class="ham-line block w-6 h-0.5 bg-amber-400 transition-all duration-300"></span>
         <span class="ham-line block w-6 h-0.5 bg-amber-400 transition-all duration-300"></span>
         <span class="ham-line block w-6 h-0.5 bg-amber-400 transition-all duration-300"></span>
       </button>
     </div>
-    <!-- Mobile menu -->
     <div id="mobile-menu" class="hidden md:hidden bg-zinc-900/95 backdrop-blur border-t border-zinc-800">
       <ul class="flex flex-col px-6 py-4 gap-4 font-mono text-sm tracking-widest uppercase text-zinc-300">
         <li><a href="#home" class="mobile-link block hover:text-amber-400 transition">Home</a></li>
@@ -47,27 +159,22 @@
 
   <!-- ── HOME ─────────────────────────────────────────────── -->
   <section id="home" class="relative min-h-screen flex flex-col justify-center overflow-hidden">
-    <!-- Grid bg -->
     <div class="grid-bg absolute inset-0 opacity-10"></div>
-    <!-- Glow orbs -->
     <div class="absolute top-1/4 -left-40 w-96 h-96 rounded-full bg-amber-500/20 blur-3xl"></div>
     <div class="absolute bottom-1/4 -right-40 w-96 h-96 rounded-full bg-orange-600/15 blur-3xl"></div>
 
     <div class="relative max-w-7xl mx-auto px-5 pt-28 pb-16">
-      <!-- Badge -->
-      <div
-        class="inline-flex items-center gap-2 border border-amber-400/40 rounded-full px-4 py-1.5 mb-8 text-amber-400 font-mono text-xs tracking-widest uppercase">
+      <div class="inline-flex items-center gap-2 border border-amber-400/40 rounded-full px-4 py-1.5 mb-8 text-amber-400 font-mono text-xs tracking-widest uppercase">
         <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
         Trusted Since Day One · Madarpur, Siwan, Bihar
       </div>
 
-      <h1 class="hero-title font-display text-[clamp(4rem,14vw,11rem)] leading-none text-white mb-4">
-        S.A TRADES
-      </h1>
-      <p class="text-zinc-400 text-lg md:text-xl max-w-xl mb-3 font-light leading-relaxed">
+      <h1 class="font-display text-[clamp(4rem,14vw,11rem)] leading-none text-white mb-4">S.A TRADES</h1>
+      <p class="text-zinc-400 text-lg md:text-xl max-w-2xl mb-3 font-light leading-relaxed">
         Your one-stop destination for <span class="text-amber-400 font-medium">electrical items</span>,
-        <span class="text-amber-400 font-medium">hardware tools</span>, and
-        <span class="text-amber-400 font-medium">electrical accessories</span>.
+        <span class="text-amber-400 font-medium">hardware tools</span>,
+        <span class="text-amber-400 font-medium">plumbing supplies</span>, and
+        <span class="text-amber-400 font-medium">paints &amp; finishes</span>.
       </p>
       <p class="text-zinc-500 text-sm font-mono mb-10 tracking-wide">
         Owned &amp; operated by <span class="text-white">Er. Md Danish Equbal</span>
@@ -75,33 +182,27 @@
 
       <div class="flex flex-wrap gap-4">
         <a href="#products"
-          class="btn-primary inline-flex items-center gap-2 bg-amber-400 hover:bg-amber-300 text-zinc-950 font-bold px-7 py-3.5 rounded-sm text-sm tracking-wider uppercase transition-all duration-200 shadow-lg shadow-amber-400/20">
+          class="inline-flex items-center gap-2 bg-amber-400 hover:bg-amber-300 text-zinc-950 font-bold px-7 py-3.5 rounded-sm text-sm tracking-wider uppercase transition-all duration-200 shadow-lg shadow-amber-400/20">
           Explore Products
           <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
           </svg>
         </a>
-        <a href="https://wa.me/919431615053?text=Hello%20sir%2C%20I%20want%20to%20visit%20your%20shop%20or%20buy%20products."
-          target="_blank"
+        <a href="https://wa.me/919431615053?text=Hello%20sir%2C%20I%20want%20to%20visit%20your%20shop%20or%20buy%20products." target="_blank"
           class="inline-flex items-center gap-2 border border-zinc-700 hover:border-amber-400 text-zinc-300 hover:text-amber-400 px-7 py-3.5 rounded-sm text-sm tracking-wider uppercase transition-all duration-200">
-          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-            <path
-              d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
-            <path
-              d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.526 5.851L.057 23.03a.75.75 0 00.914.913l5.314-1.494A11.956 11.956 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.926 0-3.731-.497-5.3-1.367l-.38-.214-3.954 1.11 1.089-3.875-.226-.391A9.956 9.956 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z" />
-          </svg>
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.526 5.851L.057 23.03a.75.75 0 00.914.913l5.314-1.494A11.956 11.956 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.926 0-3.731-.497-5.3-1.367l-.38-.214-3.954 1.11 1.089-3.875-.226-.391A9.956 9.956 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
           WhatsApp Us
         </a>
       </div>
 
-      <!-- Stats row -->
+      <!-- Stats row — updated to 5 categories -->
       <div class="grid grid-cols-3 gap-6 mt-16 pt-10 border-t border-zinc-800 max-w-lg">
         <div>
-          <div class="font-display text-4xl text-amber-400">500+</div>
+          <div class="font-display text-4xl text-amber-400">700+</div>
           <div class="text-zinc-500 text-xs font-mono mt-1 tracking-wider">Products</div>
         </div>
         <div>
-          <div class="font-display text-4xl text-amber-400">3</div>
+          <div class="font-display text-4xl text-amber-400">5</div>
           <div class="text-zinc-500 text-xs font-mono mt-1 tracking-wider">Categories</div>
         </div>
         <div>
@@ -111,7 +212,6 @@
       </div>
     </div>
 
-    <!-- Scroll indicator -->
     <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-zinc-600">
       <span class="font-mono text-xs tracking-widest uppercase">Scroll</span>
       <div class="scroll-dot w-0.5 h-8 bg-gradient-to-b from-amber-400 to-transparent"></div>
@@ -121,98 +221,115 @@
   <!-- ── CATEGORIES ────────────────────────────────────────── -->
   <section id="categories" class="py-24 px-5 bg-zinc-900 relative overflow-hidden">
     <div class="max-w-7xl mx-auto">
-      <div class="section-header mb-14">
+      <div class="mb-14">
         <p class="font-mono text-amber-400 text-xs tracking-widest uppercase mb-3">// Browse by type</p>
         <h2 class="font-display text-5xl md:text-7xl text-white">CATEGORIES</h2>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <!-- Row 1: 3 cards -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+
         <!-- Electrical Items -->
-        <div
-          class="category-card group relative overflow-hidden rounded border border-zinc-800 hover:border-amber-400/50 transition-all duration-300 cursor-pointer"
+        <div class="category-card group relative overflow-hidden rounded border border-zinc-800 hover:border-amber-400/50 transition-all duration-300 cursor-pointer"
           onclick="filterProducts('electrical-items'); scrollToProducts();">
-          <div
-            class="absolute inset-0 bg-gradient-to-br from-amber-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          </div>
+          <div class="absolute inset-0 bg-gradient-to-br from-amber-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           <div class="p-8">
-            <div
-              class="w-14 h-14 rounded-sm bg-amber-400/10 border border-amber-400/20 flex items-center justify-center mb-6 group-hover:bg-amber-400/20 transition-all">
-              <svg class="w-7 h-7 text-amber-400" fill="none" stroke="currentColor" stroke-width="1.5"
-                viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                  d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
+            <div class="w-14 h-14 rounded-sm bg-amber-400/10 border border-amber-400/20 flex items-center justify-center mb-6 group-hover:bg-amber-400/20 transition-all">
+              <svg class="w-7 h-7 text-amber-400" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"/>
               </svg>
             </div>
             <h3 class="font-display text-3xl text-white mb-3">ELECTRICAL<br>ITEMS</h3>
-            <p class="text-zinc-500 text-sm leading-relaxed">Wires, cables, switches, sockets, MCBs, distribution
-              boards, and complete electrical solutions.</p>
-            <div
-              class="mt-6 flex items-center gap-2 text-amber-400 font-mono text-xs tracking-wider uppercase opacity-0 group-hover:opacity-100 transition-opacity">
-              View Products <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
+            <p class="text-zinc-500 text-sm leading-relaxed">Wires, cables, switches, sockets, MCBs, distribution boards, and complete electrical solutions.</p>
+            <div class="mt-6 flex items-center gap-2 text-amber-400 font-mono text-xs tracking-wider uppercase opacity-0 group-hover:opacity-100 transition-opacity">
+              View Products <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
             </div>
           </div>
           <div class="cat-indicator h-1 w-0 bg-amber-400 group-hover:w-full transition-all duration-500"></div>
         </div>
 
         <!-- Hardware Tools -->
-        <div
-          class="category-card group relative overflow-hidden rounded border border-zinc-800 hover:border-amber-400/50 transition-all duration-300 cursor-pointer md:mt-8"
+        <div class="category-card group relative overflow-hidden rounded border border-zinc-800 hover:border-amber-400/50 transition-all duration-300 cursor-pointer md:mt-8"
           onclick="filterProducts('hardware-tools'); scrollToProducts();">
-          <div
-            class="absolute inset-0 bg-gradient-to-br from-amber-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          </div>
+          <div class="absolute inset-0 bg-gradient-to-br from-amber-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           <div class="p-8">
-            <div
-              class="w-14 h-14 rounded-sm bg-amber-400/10 border border-amber-400/20 flex items-center justify-center mb-6 group-hover:bg-amber-400/20 transition-all">
-              <svg class="w-7 h-7 text-amber-400" fill="none" stroke="currentColor" stroke-width="1.5"
-                viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                  d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 11-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 004.486-6.336l-3.276 3.277a3.004 3.004 0 01-2.25-2.25l3.276-3.276a4.5 4.5 0 00-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437l1.745-1.437m6.615 8.206L15.75 15.75M4.867 19.125h.008v.008h-.008v-.008z" />
+            <div class="w-14 h-14 rounded-sm bg-amber-400/10 border border-amber-400/20 flex items-center justify-center mb-6 group-hover:bg-amber-400/20 transition-all">
+              <svg class="w-7 h-7 text-amber-400" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 11-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 004.486-6.336l-3.276 3.277a3.004 3.004 0 01-2.25-2.25l3.276-3.276a4.5 4.5 0 00-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437l1.745-1.437m6.615 8.206L15.75 15.75M4.867 19.125h.008v.008h-.008v-.008z"/>
               </svg>
             </div>
             <h3 class="font-display text-3xl text-white mb-3">HARDWARE<br>TOOLS</h3>
-            <p class="text-zinc-500 text-sm leading-relaxed">Drill machines, screwdrivers, pliers, wrenches, measuring
-              tapes, and professional-grade hand tools.</p>
-            <div
-              class="mt-6 flex items-center gap-2 text-amber-400 font-mono text-xs tracking-wider uppercase opacity-0 group-hover:opacity-100 transition-opacity">
-              View Products <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
+            <p class="text-zinc-500 text-sm leading-relaxed">Drill machines, screwdrivers, pliers, wrenches, measuring tapes, and professional-grade hand tools.</p>
+            <div class="mt-6 flex items-center gap-2 text-amber-400 font-mono text-xs tracking-wider uppercase opacity-0 group-hover:opacity-100 transition-opacity">
+              View Products <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
             </div>
           </div>
           <div class="cat-indicator h-1 w-0 bg-amber-400 group-hover:w-full transition-all duration-500"></div>
         </div>
 
         <!-- Electrical Accessories -->
-        <div
-          class="category-card group relative overflow-hidden rounded border border-zinc-800 hover:border-amber-400/50 transition-all duration-300 cursor-pointer"
+        <div class="category-card group relative overflow-hidden rounded border border-zinc-800 hover:border-amber-400/50 transition-all duration-300 cursor-pointer"
           onclick="filterProducts('electrical-accessories'); scrollToProducts();">
-          <div
-            class="absolute inset-0 bg-gradient-to-br from-amber-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          </div>
+          <div class="absolute inset-0 bg-gradient-to-br from-amber-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           <div class="p-8">
-            <div
-              class="w-14 h-14 rounded-sm bg-amber-400/10 border border-amber-400/20 flex items-center justify-center mb-6 group-hover:bg-amber-400/20 transition-all">
-              <svg class="w-7 h-7 text-amber-400" fill="none" stroke="currentColor" stroke-width="1.5"
-                viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                  d="M14.25 6.087c0-.355.186-.676.401-.959.221-.29.349-.634.349-1.003 0-1.036-1.007-1.875-2.25-1.875s-2.25.84-2.25 1.875c0 .369.128.713.349 1.003.215.283.401.604.401.959v0a.64.64 0 01-.657.643 48.39 48.39 0 01-4.163-.3c.186 1.613.293 3.25.315 4.907a.656.656 0 01-.658.663v0c-.355 0-.676-.186-.959-.401a1.647 1.647 0 00-1.003-.349c-1.036 0-1.875 1.007-1.875 2.25s.84 2.25 1.875 2.25c.369 0 .713-.128 1.003-.349.283-.215.604-.401.959-.401v0c.31 0 .555.26.532.57a48.039 48.039 0 01-.642 5.056c1.518.19 3.058.309 4.616.354a.64.64 0 00.657-.643v0c0-.355-.186-.676-.401-.959a1.647 1.647 0 01-.349-1.003c0-1.035 1.008-1.875 2.25-1.875 1.243 0 2.25.84 2.25 1.875 0 .369-.128.713-.349 1.003-.215.283-.4.604-.4.959v0c0 .333.277.599.61.58a48.1 48.1 0 005.427-.63 48.05 48.05 0 00.582-4.717.532.532 0 00-.533-.57v0c-.355 0-.676.186-.959.401-.29.221-.634.349-1.003.349-1.035 0-1.875-1.007-1.875-2.25s.84-2.25 1.875-2.25c.37 0 .713.128 1.003.349.283.215.604.401.959.401v0a.656.656 0 00.658-.663 48.422 48.422 0 00-.37-5.36c-1.886.342-3.81.574-5.766.689a.578.578 0 01-.61-.58v0z" />
+            <div class="w-14 h-14 rounded-sm bg-amber-400/10 border border-amber-400/20 flex items-center justify-center mb-6 group-hover:bg-amber-400/20 transition-all">
+              <svg class="w-7 h-7 text-amber-400" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M14.25 6.087c0-.355.186-.676.401-.959.221-.29.349-.634.349-1.003 0-1.036-1.007-1.875-2.25-1.875s-2.25.84-2.25 1.875c0 .369.128.713.349 1.003.215.283.401.604.401.959v0a.64.64 0 01-.657.643 48.39 48.39 0 01-4.163-.3c.186 1.613.293 3.25.315 4.907a.656.656 0 01-.658.663v0c-.355 0-.676-.186-.959-.401a1.647 1.647 0 00-1.003-.349c-1.036 0-1.875 1.007-1.875 2.25s.84 2.25 1.875 2.25c.369 0 .713-.128 1.003-.349.283-.215.604-.401.959-.401v0c.31 0 .555.26.532.57a48.039 48.039 0 01-.642 5.056c1.518.19 3.058.309 4.616.354a.64.64 0 00.657-.643v0c0-.355-.186-.676-.401-.959a1.647 1.647 0 01-.349-1.003c0-1.035 1.008-1.875 2.25-1.875 1.243 0 2.25.84 2.25 1.875 0 .369-.128.713-.349 1.003-.215.283-.4.604-.4.959v0c0 .333.277.599.61.58a48.1 48.1 0 005.427-.63 48.05 48.05 0 00.582-4.717.532.532 0 00-.533-.57v0c-.355 0-.676.186-.959.401-.29.221-.634.349-1.003.349-1.035 0-1.875-1.007-1.875-2.25s.84-2.25 1.875-2.25c.37 0 .713.128 1.003.349.283.215.604.401.959.401v0a.656.656 0 00.658-.663 48.422 48.422 0 00-.37-5.36c-1.886.342-3.81.574-5.766.689a.578.578 0 01-.61-.58v0z"/>
               </svg>
             </div>
             <h3 class="font-display text-3xl text-white mb-3">ELECTRICAL<br>ACCESSORIES</h3>
-            <p class="text-zinc-500 text-sm leading-relaxed">Connectors, insulation tapes, conduit pipes, junction
-              boxes, cable ties, and mounting hardware.</p>
-            <div
-              class="mt-6 flex items-center gap-2 text-amber-400 font-mono text-xs tracking-wider uppercase opacity-0 group-hover:opacity-100 transition-opacity">
-              View Products <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
+            <p class="text-zinc-500 text-sm leading-relaxed">Connectors, insulation tapes, conduit pipes, junction boxes, cable ties, and mounting hardware.</p>
+            <div class="mt-6 flex items-center gap-2 text-amber-400 font-mono text-xs tracking-wider uppercase opacity-0 group-hover:opacity-100 transition-opacity">
+              View Products <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
             </div>
           </div>
           <div class="cat-indicator h-1 w-0 bg-amber-400 group-hover:w-full transition-all duration-500"></div>
         </div>
+      </div>
+
+      <!-- Row 2: 2 new cards centred -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+
+        <!-- Plumbing -->
+        <div class="category-card group relative overflow-hidden rounded border border-zinc-800 hover:border-amber-400/50 transition-all duration-300 cursor-pointer"
+          onclick="filterProducts('plumbing'); scrollToProducts();">
+          <div class="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          <div class="p-8">
+            <div class="w-14 h-14 rounded-sm bg-blue-400/10 border border-blue-400/20 flex items-center justify-center mb-6 group-hover:bg-blue-400/20 transition-all">
+              <!-- Water/pipe SVG icon -->
+              <svg class="w-7 h-7 text-blue-400" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"/>
+              </svg>
+            </div>
+            <h3 class="font-display text-3xl text-white mb-3">PLUMBING<br>SUPPLIES</h3>
+            <p class="text-zinc-500 text-sm leading-relaxed">PVC pipes, CPVC fittings, ball valves, taps, water tanks, pipe clamps, and complete plumbing solutions.</p>
+            <div class="mt-6 flex items-center gap-2 text-blue-400 font-mono text-xs tracking-wider uppercase opacity-0 group-hover:opacity-100 transition-opacity">
+              View Products <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+            </div>
+          </div>
+          <div class="h-1 w-0 bg-blue-400 group-hover:w-full transition-all duration-500"></div>
+        </div>
+
+        <!-- Paint -->
+        <div class="category-card group relative overflow-hidden rounded border border-zinc-800 hover:border-amber-400/50 transition-all duration-300 cursor-pointer md:mt-8"
+          onclick="filterProducts('paint'); scrollToProducts();">
+          <div class="absolute inset-0 bg-gradient-to-br from-rose-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          <div class="p-8">
+            <div class="w-14 h-14 rounded-sm bg-rose-400/10 border border-rose-400/20 flex items-center justify-center mb-6 group-hover:bg-rose-400/20 transition-all">
+              <!-- Paint bucket SVG icon -->
+              <svg class="w-7 h-7 text-rose-400" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.395m3.42 3.42a15.995 15.995 0 004.764-4.648l3.876-5.814a1.151 1.151 0 00-1.597-1.597L14.146 6.32a15.996 15.996 0 00-4.649 4.763m3.42 3.42a6.776 6.776 0 00-3.42-3.42"/>
+              </svg>
+            </div>
+            <h3 class="font-display text-3xl text-white mb-3">PAINT &amp;<br>FINISHES</h3>
+            <p class="text-zinc-500 text-sm leading-relaxed">Interior &amp; exterior emulsion, primer, enamel, putty, waterproofing compounds, and application tools.</p>
+            <div class="mt-6 flex items-center gap-2 text-rose-400 font-mono text-xs tracking-wider uppercase opacity-0 group-hover:opacity-100 transition-opacity">
+              View Products <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+            </div>
+          </div>
+          <div class="h-1 w-0 bg-rose-400 group-hover:w-full transition-all duration-500"></div>
+        </div>
+
       </div>
     </div>
   </section>
@@ -225,20 +342,13 @@
           <p class="font-mono text-amber-400 text-xs tracking-widest uppercase mb-3">// What we stock</p>
           <h2 class="font-display text-5xl md:text-7xl text-white">PRODUCTS</h2>
         </div>
-        <!-- Filter buttons -->
         <div class="flex flex-wrap gap-2" id="filter-btns">
-          <button onclick="filterProducts('all')"
-            class="filter-btn active font-mono text-xs px-4 py-2 rounded-sm border tracking-widest uppercase transition-all"
-            data-cat="all">All</button>
-          <button onclick="filterProducts('electrical-items')"
-            class="filter-btn font-mono text-xs px-4 py-2 rounded-sm border tracking-widest uppercase transition-all"
-            data-cat="electrical-items">Electrical Items</button>
-          <button onclick="filterProducts('hardware-tools')"
-            class="filter-btn font-mono text-xs px-4 py-2 rounded-sm border tracking-widest uppercase transition-all"
-            data-cat="hardware-tools">Hardware Tools</button>
-          <button onclick="filterProducts('electrical-accessories')"
-            class="filter-btn font-mono text-xs px-4 py-2 rounded-sm border tracking-widest uppercase transition-all"
-            data-cat="electrical-accessories">Accessories</button>
+          <button onclick="filterProducts('all')" class="filter-btn active font-mono text-xs px-4 py-2 rounded-sm border tracking-widest uppercase transition-all" data-cat="all">All</button>
+          <button onclick="filterProducts('electrical-items')" class="filter-btn font-mono text-xs px-4 py-2 rounded-sm border tracking-widest uppercase transition-all" data-cat="electrical-items">Electrical</button>
+          <button onclick="filterProducts('hardware-tools')" class="filter-btn font-mono text-xs px-4 py-2 rounded-sm border tracking-widest uppercase transition-all" data-cat="hardware-tools">Hardware</button>
+          <button onclick="filterProducts('electrical-accessories')" class="filter-btn font-mono text-xs px-4 py-2 rounded-sm border tracking-widest uppercase transition-all" data-cat="electrical-accessories">Accessories</button>
+          <button onclick="filterProducts('plumbing')" class="filter-btn font-mono text-xs px-4 py-2 rounded-sm border tracking-widest uppercase transition-all" data-cat="plumbing">Plumbing</button>
+          <button onclick="filterProducts('paint')" class="filter-btn font-mono text-xs px-4 py-2 rounded-sm border tracking-widest uppercase transition-all" data-cat="paint">Paint</button>
         </div>
       </div>
 
@@ -259,35 +369,18 @@
           <p class="font-mono text-amber-400 text-xs tracking-widest uppercase mb-3">// Our story</p>
           <h2 class="font-display text-5xl md:text-7xl text-white mb-8">ABOUT<br>TRADES</h2>
           <div class="space-y-5 text-zinc-400 leading-relaxed">
-            <p>
-              <span class="text-white font-medium">S.A Trades</span> is a trusted retail shop based in Madarpur, Siwan,
-              Bihar, specialising in electrical items, hardware tools, and electrical accessories. We serve homeowners,
-              contractors, electricians, and builders who demand quality products at fair prices.
-            </p>
-            <p>
-              Founded with a commitment to excellence and genuine products, Trades has become a reliable name in the
-              local market. Whether you need a complete electrical setup for a new home or a single tool for a quick
-              repair, we have you covered.
-            </p>
-            <p>
-              We source from trusted brands and manufacturers to ensure that every product we sell meets safety
-              standards and delivers long-lasting performance. Our knowledgeable team is always ready to guide you to
-              the right product.
-            </p>
+            <p><span class="text-white font-medium">S.A Trades</span> is a trusted retail shop based in Madarpur, Siwan, Bihar, specialising in electrical items, hardware tools, electrical accessories, plumbing supplies, and paints &amp; finishes. We serve homeowners, contractors, electricians, and builders who demand quality products at fair prices.</p>
+            <p>Founded with a commitment to excellence and genuine products, S.A Trades has become a reliable name in the local market. Whether you need a complete electrical setup for a new home, plumbing for a renovation, or paint for a fresh finish — we have you covered.</p>
+            <p>We source from trusted brands and manufacturers to ensure that every product we sell meets safety standards and delivers long-lasting performance. Our knowledgeable team is always ready to guide you to the right product.</p>
           </div>
         </div>
 
-        <!-- Owner card -->
         <div class="owner-card relative">
           <div class="absolute -inset-px rounded border border-amber-400/20"></div>
           <div class="relative bg-zinc-950 rounded p-10">
-            <!-- Icon -->
-            <div
-              class="w-20 h-20 rounded-sm bg-amber-400/10 border border-amber-400/20 flex items-center justify-center mb-8">
-              <svg class="w-10 h-10 text-amber-400" fill="none" stroke="currentColor" stroke-width="1.5"
-                viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                  d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+            <div class="w-20 h-20 rounded-sm bg-amber-400/10 border border-amber-400/20 flex items-center justify-center mb-8">
+              <svg class="w-10 h-10 text-amber-400" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/>
               </svg>
             </div>
             <div class="font-mono text-amber-400 text-xs tracking-widest uppercase mb-1">Owner &amp; Proprietor</div>
@@ -305,46 +398,44 @@
               </div>
               <div>
                 <div class="text-zinc-600 text-xs font-mono uppercase tracking-wider mb-1">Specialty</div>
-                <div class="text-white font-medium">Electrical &amp; Hardware</div>
+                <div class="text-white font-medium">Electrical, Hardware, Plumbing &amp; Paint</div>
               </div>
               <div>
                 <div class="text-zinc-600 text-xs font-mono uppercase tracking-wider mb-1">Products</div>
-                <div class="text-white font-medium">500+ SKUs</div>
+                <div class="text-white font-medium">700+ SKUs</div>
               </div>
             </div>
 
-            <a href="https://wa.me/919431615053?text=Hello%20sir%2C%20I%20want%20to%20visit%20your%20shop%20or%20buy%20products."
-              target="_blank"
+            <a href="https://wa.me/919431615053?text=Hello%20sir%2C%20I%20want%20to%20visit%20your%20shop%20or%20buy%20products." target="_blank"
               class="mt-8 w-full flex items-center justify-center gap-2 bg-green-600 hover:bg-green-500 text-white font-mono text-sm px-6 py-3.5 rounded-sm tracking-wider uppercase transition-all">
-              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                <path
-                  d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
-                <path
-                  d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.526 5.851L.057 23.03a.75.75 0 00.914.913l5.314-1.494A11.956 11.956 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.926 0-3.731-.497-5.3-1.367l-.38-.214-3.954 1.11 1.089-3.875-.226-.391A9.956 9.956 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z" />
-              </svg>
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.526 5.851L.057 23.03a.75.75 0 00.914.913l5.314-1.494A11.956 11.956 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.926 0-3.731-.497-5.3-1.367l-.38-.214-3.954 1.11 1.089-3.875-.226-.391A9.956 9.956 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
               Chat on WhatsApp
             </a>
           </div>
         </div>
       </div>
 
-      <!-- Values strip -->
-      <div class="mt-20 grid grid-cols-2 md:grid-cols-4 gap-px bg-zinc-800">
-        <div class="bg-zinc-900 p-8 text-center">
+      <!-- Values strip — now 5 values -->
+      <div class="mt-20 grid grid-cols-2 md:grid-cols-5 gap-px bg-zinc-800">
+        <div class="bg-zinc-900 p-6 text-center">
           <div class="text-amber-400 font-display text-2xl mb-2">QUALITY</div>
           <div class="text-zinc-500 text-sm">Only genuine, brand-certified products</div>
         </div>
-        <div class="bg-zinc-900 p-8 text-center">
+        <div class="bg-zinc-900 p-6 text-center">
           <div class="text-amber-400 font-display text-2xl mb-2">TRUST</div>
           <div class="text-zinc-500 text-sm">Built on years of honest business</div>
         </div>
-        <div class="bg-zinc-900 p-8 text-center">
+        <div class="bg-zinc-900 p-6 text-center">
           <div class="text-amber-400 font-display text-2xl mb-2">RANGE</div>
-          <div class="text-zinc-500 text-sm">500+ products across 3 categories</div>
+          <div class="text-zinc-500 text-sm">700+ products across 5 categories</div>
         </div>
-        <div class="bg-zinc-900 p-8 text-center">
+        <div class="bg-zinc-900 p-6 text-center">
           <div class="text-amber-400 font-display text-2xl mb-2">SERVICE</div>
           <div class="text-zinc-500 text-sm">Expert guidance with every purchase</div>
+        </div>
+        <div class="bg-zinc-900 p-6 text-center">
+          <div class="text-amber-400 font-display text-2xl mb-2">VALUE</div>
+          <div class="text-zinc-500 text-sm">Fair prices, no compromise on quality</div>
         </div>
       </div>
     </div>
@@ -360,16 +451,10 @@
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
-        <!-- Info panel -->
         <div class="space-y-5">
-          <div
-            class="info-block flex items-start gap-5 p-6 border border-zinc-800 rounded hover:border-amber-400/30 transition-all duration-300">
+          <div class="info-block flex items-start gap-5 p-6 border border-zinc-800 rounded hover:border-amber-400/30 transition-all duration-300">
             <div class="shrink-0 w-10 h-10 bg-amber-400/10 rounded-sm flex items-center justify-center">
-              <svg class="w-5 h-5 text-amber-400" fill="none" stroke="currentColor" stroke-width="1.5"
-                viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                  d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
-              </svg>
+              <svg class="w-5 h-5 text-amber-400" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/></svg>
             </div>
             <div>
               <div class="font-mono text-zinc-500 text-xs tracking-widest uppercase mb-1">Owner</div>
@@ -377,46 +462,29 @@
             </div>
           </div>
 
-          <div
-            class="info-block flex items-start gap-5 p-6 border border-zinc-800 rounded hover:border-amber-400/30 transition-all duration-300">
+          <div class="info-block flex items-start gap-5 p-6 border border-zinc-800 rounded hover:border-amber-400/30 transition-all duration-300">
             <div class="shrink-0 w-10 h-10 bg-amber-400/10 rounded-sm flex items-center justify-center">
-              <svg class="w-5 h-5 text-amber-400" fill="none" stroke="currentColor" stroke-width="1.5"
-                viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                  d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
-              </svg>
+              <svg class="w-5 h-5 text-amber-400" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/></svg>
             </div>
             <div>
               <div class="font-mono text-zinc-500 text-xs tracking-widest uppercase mb-1">Phone</div>
-              <a href="tel:+919431615053" class="text-white font-medium hover:text-amber-400 transition">+91 94316
-                15053</a>
+              <a href="tel:+919431615053" class="text-white font-medium hover:text-amber-400 transition">+91 94316 15053</a>
             </div>
           </div>
 
-          <div
-            class="info-block flex items-start gap-5 p-6 border border-zinc-800 rounded hover:border-amber-400/30 transition-all duration-300">
+          <div class="info-block flex items-start gap-5 p-6 border border-zinc-800 rounded hover:border-amber-400/30 transition-all duration-300">
             <div class="shrink-0 w-10 h-10 bg-amber-400/10 rounded-sm flex items-center justify-center">
-              <svg class="w-5 h-5 text-amber-400" fill="none" stroke="currentColor" stroke-width="1.5"
-                viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                  d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
-              </svg>
+              <svg class="w-5 h-5 text-amber-400" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
             </div>
             <div>
               <div class="font-mono text-zinc-500 text-xs tracking-widest uppercase mb-1">Email</div>
-              <a href="mailto:trades.danish@gmail.com"
-                class="text-white font-medium hover:text-amber-400 transition">trades.danish@gmail.com</a>
+              <a href="mailto:trades.danish@gmail.com" class="text-white font-medium hover:text-amber-400 transition">trades.danish@gmail.com</a>
             </div>
           </div>
 
-          <div
-            class="info-block flex items-start gap-5 p-6 border border-zinc-800 rounded hover:border-amber-400/30 transition-all duration-300">
+          <div class="info-block flex items-start gap-5 p-6 border border-zinc-800 rounded hover:border-amber-400/30 transition-all duration-300">
             <div class="shrink-0 w-10 h-10 bg-amber-400/10 rounded-sm flex items-center justify-center">
-              <svg class="w-5 h-5 text-amber-400" fill="none" stroke="currentColor" stroke-width="1.5"
-                viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                  d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
-              </svg>
+              <svg class="w-5 h-5 text-amber-400" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"/></svg>
             </div>
             <div>
               <div class="font-mono text-zinc-500 text-xs tracking-widest uppercase mb-1">GST Number</div>
@@ -425,58 +493,37 @@
             </div>
           </div>
 
-          <div
-            class="info-block flex items-start gap-5 p-6 border border-zinc-800 rounded hover:border-amber-400/30 transition-all duration-300">
+          <div class="info-block flex items-start gap-5 p-6 border border-zinc-800 rounded hover:border-amber-400/30 transition-all duration-300">
             <div class="shrink-0 w-10 h-10 bg-amber-400/10 rounded-sm flex items-center justify-center">
-              <svg class="w-5 h-5 text-amber-400" fill="none" stroke="currentColor" stroke-width="1.5"
-                viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
-                <path stroke-linecap="round" stroke-linejoin="round"
-                  d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
-              </svg>
+              <svg class="w-5 h-5 text-amber-400" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg>
             </div>
             <div>
               <div class="font-mono text-zinc-500 text-xs tracking-widest uppercase mb-1">Address</div>
               <div class="text-white font-medium">S.A Traders</div>
-              <div class="text-zinc-400 text-sm mt-0.5">Madarpur, siwan, Bihar, 841416, Near Jalal market</div>
-              <a href="https://maps.google.com/?q=26.228115,84.671288" target="_blank"
-                class="inline-flex items-center gap-1 text-amber-400 hover:text-amber-300 font-mono text-xs tracking-wider uppercase mt-2 transition">
-                <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
+              <div class="text-zinc-400 text-sm mt-0.5">Madarpur, Siwan, Bihar, 841416, Near Jalal Market</div>
+              <a href="https://maps.google.com/?q=26.228115,84.671288" target="_blank" class="inline-flex items-center gap-1 text-amber-400 hover:text-amber-300 font-mono text-xs tracking-wider uppercase mt-2 transition">
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
                 Open in Google Maps
               </a>
             </div>
           </div>
 
-          <!-- WhatsApp CTA -->
-          <a href="https://wa.me/919431615053?text=Hello%20sir%2C%20I%20want%20to%20visit%20your%20shop%20or%20buy%20products."
-            target="_blank"
+          <a href="https://wa.me/919431615053?text=Hello%20sir%2C%20I%20want%20to%20visit%20your%20shop%20or%20buy%20products." target="_blank"
             class="flex items-center justify-center gap-3 w-full bg-green-600 hover:bg-green-500 text-white font-mono text-sm px-6 py-4 rounded-sm tracking-wider uppercase transition-all duration-200 shadow-lg shadow-green-900/30">
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-              <path
-                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
-              <path
-                d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.526 5.851L.057 23.03a.75.75 0 00.914.913l5.314-1.494A11.956 11.956 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.926 0-3.731-.497-5.3-1.367l-.38-.214-3.954 1.11 1.089-3.875-.226-.391A9.956 9.956 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z" />
-            </svg>
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.526 5.851L.057 23.03a.75.75 0 00.914.913l5.314-1.494A11.956 11.956 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.926 0-3.731-.497-5.3-1.367l-.38-.214-3.954 1.11 1.089-3.875-.226-.391A9.956 9.956 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
             Send "Hello sir, I want to visit your shop"
           </a>
         </div>
 
-        <!-- Map -->
         <div class="relative rounded overflow-hidden border border-zinc-800" style="min-height:500px;">
           <div class="absolute inset-0 z-0">
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3588.563!2d84.671288!3d26.228115!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2s!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin&q=26.228115,84.671288"
-              width="100%" height="100%" style="border:0;filter:invert(90%) hue-rotate(180deg);" allowfullscreen=""
-              loading="lazy"></iframe>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3588.563!2d84.671288!3d26.228115!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2s!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin&q=26.228115,84.671288"
+              width="100%" height="100%" style="border:0;filter:invert(90%) hue-rotate(180deg);" allowfullscreen="" loading="lazy"></iframe>
           </div>
           <div class="absolute top-4 left-4 z-10 bg-zinc-950/90 border border-zinc-800 rounded px-4 py-3 backdrop-blur">
             <div class="font-mono text-amber-400 text-xs tracking-widest uppercase mb-0.5">Location</div>
             <div class="text-white text-sm font-medium">S.A Traders · Madarpur, Siwan</div>
-            <a href="https://maps.google.com/?q=26.228115,84.671288" target="_blank"
-              class="text-amber-400 hover:text-amber-300 font-mono text-xs tracking-wider uppercase transition">Get
-              Directions →</a>
+            <a href="https://maps.google.com/?q=26.228115,84.671288" target="_blank" class="text-amber-400 hover:text-amber-300 font-mono text-xs tracking-wider uppercase transition">Get Directions →</a>
           </div>
         </div>
       </div>
@@ -487,30 +534,158 @@
   <footer class="bg-zinc-900 border-t border-zinc-800 py-10 px-5">
     <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
       <div class="font-display text-2xl text-amber-400 tracking-widest">TRADES</div>
-      <div class="text-zinc-600 text-xs font-mono text-center">
-        © 2025 S.A Trades · Er. Md Danish Equbal · Madarpur, Siwan, Bihar
-      </div>
-      <a href="https://wa.me/919431615053?text=Hello%20sir%2C%20I%20want%20to%20visit%20your%20shop%20or%20buy%20products."
-        target="_blank"
+      <div class="text-zinc-600 text-xs font-mono text-center">© 2025 S.A Trades · Er. Md Danish Equbal · Madarpur, Siwan, Bihar</div>
+      <a href="https://wa.me/919431615053?text=Hello%20sir%2C%20I%20want%20to%20visit%20your%20shop%20or%20buy%20products." target="_blank"
         class="flex items-center gap-2 text-green-500 hover:text-green-400 font-mono text-xs tracking-wider uppercase transition">
-        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-          <path
-            d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
-          <path
-            d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.526 5.851L.057 23.03a.75.75 0 00.914.913l5.314-1.494A11.956 11.956 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.926 0-3.731-.497-5.3-1.367l-.38-.214-3.954 1.11 1.089-3.875-.226-.391A9.956 9.956 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z" />
-        </svg>
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.526 5.851L.057 23.03a.75.75 0 00.914.913l5.314-1.494A11.956 11.956 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.926 0-3.731-.497-5.3-1.367l-.38-.214-3.954 1.11 1.089-3.875-.226-.391A9.956 9.956 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
         WhatsApp
       </a>
     </div>
   </footer>
 
   <!-- WhatsApp Floating Button -->
-  <a href="https://wa.me/919431615053?text=Hello%20sir%2C%20I%20want%20to%20visit%20your%20shop%20or%20buy%20products."
-    target="_blank"
-    class="fixed bottom-6 right-6 z-50 w-14 h-14 bg-green-500 hover:bg-green-400 rounded-full flex items-center justify-center shadow-xl shadow-green-900/40 transition-all duration-200 hover:scale-110"
-    title="Chat on WhatsApp">
-    <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24">
-      <path
-        d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
-      <path
-        d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.526 5.851L.057 23.03a.75.75 0 00.914.913l5.314-1.494A11.956 11.956 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.926 0-3.731-.497-5.3-1.367l-.38-.214-3.954 1.11 1.089-3.875-.226-.391A9.95
+  <a href="https://wa.me/919431615053?text=Hello%20sir%2C%20I%20want%20to%20visit%20your%20shop%20or%20buy%20products." target="_blank"
+    class="fixed bottom-6 right-6 z-50 w-14 h-14 bg-green-500 hover:bg-green-400 rounded-full flex items-center justify-center shadow-xl shadow-green-900/40 transition-all duration-200 hover:scale-110" title="Chat on WhatsApp">
+    <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.526 5.851L.057 23.03a.75.75 0 00.914.913l5.314-1.494A11.956 11.956 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.926 0-3.731-.497-5.3-1.367l-.38-.214-3.954 1.11 1.089-3.875-.226-.391A9.956 9.956 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+  </a>
+
+  <!-- ── JS ─────────────────────────────────────────────────── -->
+  <script>
+    // ── Product Data ──────────────────────────────────────────
+    const PRODUCTS = [
+      // Electrical Items
+      { id:1, cat:'electrical-items', name:'Polycab FR Wire 1.5 sq mm', sub:'Electrical Items', icon:'⚡', bg:'#1c1a0e', badge:'Best Seller', badgeColor:'amber', brand:'Polycab', desc:'Single-core, flame-retardant PVC insulation, 90m coil.' },
+      { id:2, cat:'electrical-items', name:'Havells MCB 32A SP', sub:'Electrical Items', icon:'🔌', bg:'#1a0e1c', badge:'New Stock', badgeColor:'purple', brand:'Havells', desc:'Single pole miniature circuit breaker, 6kA breaking capacity.' },
+      { id:3, cat:'electrical-items', name:'Schneider 4-Way Distribution Board', sub:'Electrical Items', icon:'⚙️', bg:'#0e1c18', badge:'', badgeColor:'', brand:'Schneider', desc:'4-way consumer unit with earth bar and neutral bar.' },
+      { id:4, cat:'electrical-items', name:'Anchor Roma 6A Switch', sub:'Electrical Items', icon:'🔦', bg:'#1a1a0e', badge:'', badgeColor:'', brand:'Anchor', desc:'6A one-way switch, ivory modular, pack of 10.' },
+      { id:5, cat:'electrical-items', name:'Finolex 2.5 sq mm Wire', sub:'Electrical Items', icon:'🔋', bg:'#1c0e0e', badge:'Popular', badgeColor:'green', brand:'Finolex', desc:'FRLS PVC insulated cable, red/black/green, 90m coil.' },
+      { id:6, cat:'electrical-items', name:'Legrand 16A Socket', sub:'Electrical Items', icon:'🔌', bg:'#1a0e1c', badge:'', badgeColor:'', brand:'Legrand', desc:'2P+E socket, 16A, white, with shutters.' },
+
+      // Hardware Tools
+      { id:7, cat:'hardware-tools', name:'Bosch GSB 550W Drill', sub:'Hardware Tools', icon:'🔩', bg:'#1c1a0e', badge:'Top Pick', badgeColor:'amber', brand:'Bosch', desc:'550W impact drill, 13mm chuck, 2800 RPM, with carry case.' },
+      { id:8, cat:'hardware-tools', name:'Stanley Screwdriver Set (12pc)', sub:'Hardware Tools', icon:'🔧', bg:'#0e1c18', badge:'', badgeColor:'', brand:'Stanley', desc:'12-piece combination set, CrV steel tips, soft-grip handles.' },
+      { id:9, cat:'hardware-tools', name:'Taparia Combination Pliers 8"', sub:'Hardware Tools', icon:'🔨', bg:'#1a0e1c', badge:'', badgeColor:'', brand:'Taparia', desc:'8-inch combination pliers, hardened jaws, insulated grip.' },
+      { id:10, cat:'hardware-tools', name:'Stanley Measuring Tape 5m', sub:'Hardware Tools', icon:'📏', bg:'#1c0e0e', badge:'', badgeColor:'', brand:'Stanley', desc:'5m blade with nylon coating, auto-rewind, belt clip.' },
+      { id:11, cat:'hardware-tools', name:'Amtech Hacksaw Frame', sub:'Hardware Tools', icon:'🪚', bg:'#1a1a0e', badge:'', badgeColor:'', brand:'Amtech', desc:'Heavy-duty adjustable frame, 300mm, with 32TPI blade.' },
+      { id:12, cat:'hardware-tools', name:'Ingco Angle Grinder 4"', sub:'Hardware Tools', icon:'⚙️', bg:'#0e1c1a', badge:'New', badgeColor:'blue', brand:'Ingco', desc:'650W, 4" disc, 11000 RPM, safety guard included.' },
+
+      // Electrical Accessories
+      { id:13, cat:'electrical-accessories', name:'Henkel Insulation Tape (PVC)', sub:'Accessories', icon:'🎗️', bg:'#1c1a0e', badge:'', badgeColor:'', brand:'Henkel', desc:'19mm × 20m black PVC electrical insulation tape, pack of 5.' },
+      { id:14, cat:'electrical-accessories', name:'Legrand 25mm Conduit Pipe', sub:'Accessories', icon:'🔗', bg:'#0e1c18', badge:'', badgeColor:'', brand:'Legrand', desc:'25mm rigid PVC conduit, ISI marked, 3m length.' },
+      { id:15, cat:'electrical-accessories', name:'3M Cable Ties 200mm', sub:'Accessories', icon:'🔧', bg:'#1a0e1c', badge:'Combo Deal', badgeColor:'amber', brand:'3M', desc:'200mm × 4.8mm nylon cable ties, pack of 100, UV resistant.' },
+      { id:16, cat:'electrical-accessories', name:'Anchor Round Junction Box', sub:'Accessories', icon:'📦', bg:'#1c0e0e', badge:'', badgeColor:'', brand:'Anchor', desc:'75mm round concealed junction box with cover, pack of 10.' },
+      { id:17, cat:'electrical-accessories', name:'L&T ELCB 40A 30mA', sub:'Accessories', icon:'⚡', bg:'#1a1a0e', badge:'Safety Essential', badgeColor:'red', brand:'L&T', desc:'40A RCCB, 2-pole, 30mA sensitivity, type AC.' },
+      { id:18, cat:'electrical-accessories', name:'Wago Connector 5-Way', sub:'Accessories', icon:'🔌', bg:'#0e1c1a', badge:'', badgeColor:'', brand:'Wago', desc:'5-way lever nut connectors, 24A, 0.5–6mm², pack of 20.' },
+
+      // Plumbing
+      { id:19, cat:'plumbing', name:'Supreme CPVC Pipe 1/2"', sub:'Plumbing', icon:'💧', bg:'#0e121c', badge:'ISI Marked', badgeColor:'blue', brand:'Supreme', desc:'Hot & cold CPVC pipe, SDR-11, 3m length, 1/2" diameter.' },
+      { id:20, cat:'plumbing', name:'Astral Ball Valve 25mm', sub:'Plumbing', icon:'🔩', bg:'#0e1c18', badge:'', badgeColor:'', brand:'Astral', desc:'Full bore brass ball valve, 1" BSP, chrome plated handle.' },
+      { id:21, cat:'plumbing', name:'Jaguar Pillar Cock Tap', sub:'Plumbing', icon:'🚿', bg:'#0e101c', badge:'Popular', badgeColor:'blue', brand:'Jaguar', desc:'Wall-mount pillar cock, quarter-turn, chrome finish, 1/2".' },
+      { id:22, cat:'plumbing', name:'Finolex PVC Pipe 4" (Class 4)', sub:'Plumbing', icon:'🪣', bg:'#0e1c14', badge:'', badgeColor:'', brand:'Finolex', desc:'4" diameter SWR PVC pipe, 3m, Class 4, ISI marked.' },
+      { id:23, cat:'plumbing', name:'Plumber Teflon Tape 12mm', sub:'Plumbing', icon:'🎗️', bg:'#0e1a1c', badge:'', badgeColor:'', brand:'Generic', desc:'White PTFE thread seal tape, 12mm × 12m, pack of 10.' },
+      { id:24, cat:'plumbing', name:'Sintex Overhead Tank 500L', sub:'Plumbing', icon:'🏗️', bg:'#0e1214', badge:'Large Format', badgeColor:'blue', brand:'Sintex', desc:'Triple-layer 500L overhead water tank, UV stabilized.' },
+
+      // Paint
+      { id:25, cat:'paint', name:'Asian Paints Tractor Emulsion 20L', sub:'Paint', icon:'🎨', bg:'#1c0e14', badge:'Best Seller', badgeColor:'rose', brand:'Asian Paints', desc:'Interior washable emulsion, white base, low-VOC, 20L bucket.' },
+      { id:26, cat:'paint', name:'Berger WeatherCoat 10L', sub:'Paint', icon:'🖌️', bg:'#1c0e0e', badge:'Exterior', badgeColor:'rose', brand:'Berger', desc:'All-season exterior emulsion, anti-fungal, white/tintable, 10L.' },
+      { id:27, cat:'paint', name:'Nerolac Excel Primer 4L', sub:'Paint', icon:'🪣', bg:'#1a0e0e', badge:'', badgeColor:'', brand:'Nerolac', desc:'Acrylic wall primer for interior/exterior, 4L tin.' },
+      { id:28, cat:'paint', name:'JK Wall Putty 40kg Bag', sub:'Paint', icon:'⚪', bg:'#181818', badge:'', badgeColor:'', brand:'JK Cement', desc:'White cement-based wall putty for smooth finish, 40kg.' },
+      { id:29, cat:'paint', name:'Asian Paints Enamel Gloss 1L', sub:'Paint', icon:'✨', bg:'#1c0e14', badge:'', badgeColor:'', brand:'Asian Paints', desc:'Synthetic enamel, smooth gloss, metal & wood use, 1L tin.' },
+      { id:30, cat:'paint', name:'Dr. Fixit Waterproofing 1L', sub:'Paint', icon:'💧', bg:'#0e1014', badge:'Specialist', badgeColor:'rose', brand:'Dr. Fixit', desc:'Pidilite Roofseal waterproofing coat, 1L, grey.' },
+    ];
+
+    const BADGE_COLORS = {
+      amber:  { bg:'rgba(251,191,36,0.15)',  text:'#fbbf24', border:'rgba(251,191,36,0.3)' },
+      green:  { bg:'rgba(34,197,94,0.12)',   text:'#4ade80', border:'rgba(34,197,94,0.3)' },
+      blue:   { bg:'rgba(59,130,246,0.12)',  text:'#60a5fa', border:'rgba(59,130,246,0.3)' },
+      purple: { bg:'rgba(168,85,247,0.12)',  text:'#c084fc', border:'rgba(168,85,247,0.3)' },
+      red:    { bg:'rgba(239,68,68,0.12)',   text:'#f87171', border:'rgba(239,68,68,0.3)' },
+      rose:   { bg:'rgba(244,63,94,0.12)',   text:'#fb7185', border:'rgba(244,63,94,0.3)' },
+    };
+
+    const CAT_ACCENT = {
+      'electrical-items':      '#fbbf24',
+      'hardware-tools':        '#fbbf24',
+      'electrical-accessories':'#fbbf24',
+      'plumbing':              '#60a5fa',
+      'paint':                 '#fb7185',
+    };
+
+    function buildCard(p) {
+      const accent = CAT_ACCENT[p.cat] || '#fbbf24';
+      const badge = p.badge
+        ? `<span style="background:${BADGE_COLORS[p.badgeColor]?.bg};color:${BADGE_COLORS[p.badgeColor]?.text};border:1px solid ${BADGE_COLORS[p.badgeColor]?.border};font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.1em;padding:2px 8px;border-radius:999px;text-transform:uppercase;">${p.badge}</span>`
+        : '';
+
+      const waText = encodeURIComponent(`Hello sir, I am interested in buying: ${p.name}. Please let me know the price and availability.`);
+
+      return `
+        <div class="product-card" data-cat="${p.cat}">
+          <!-- Visual block -->
+          <div class="product-visual" style="background:${p.bg};">
+            <span style="font-size:3.2rem;line-height:1;user-select:none;">${p.icon}</span>
+            <!-- corner accent -->
+            <div style="position:absolute;top:0;left:0;width:0;height:0;border-style:solid;border-width:28px 28px 0 0;border-color:${accent}22 transparent transparent transparent;"></div>
+            <div style="position:absolute;bottom:8px;right:10px;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.08em;text-transform:uppercase;color:${accent}55;">${p.brand}</div>
+          </div>
+          <!-- Info block -->
+          <div style="padding:16px 18px 18px;display:flex;flex-direction:column;gap:8px;flex:1;">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px;">
+              <p style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:${accent};margin:0;">${p.sub}</p>
+              ${badge}
+            </div>
+            <h3 style="font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;color:#fff;line-height:1.35;margin:0;">${p.name}</h3>
+            <p style="font-family:'DM Sans',sans-serif;font-size:12px;color:#71717a;line-height:1.5;margin:0;flex:1;">${p.desc}</p>
+            <a href="https://wa.me/919431615053?text=${waText}" target="_blank"
+              style="margin-top:8px;display:flex;align-items:center;justify-content:center;gap:6px;background:#16a34a;color:#fff;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;padding:10px 14px;border-radius:2px;text-decoration:none;transition:background 0.2s;"
+              onmouseover="this.style.background='#15803d'" onmouseout="this.style.background='#16a34a'">
+              <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.526 5.851L.057 23.03a.75.75 0 00.914.913l5.314-1.494A11.956 11.956 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.926 0-3.731-.497-5.3-1.367l-.38-.214-3.954 1.11 1.089-3.875-.226-.391A9.956 9.956 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+              Enquire on WhatsApp
+            </a>
+          </div>
+        </div>`;
+    }
+
+    // ── Render all products on load ────────────────────────────
+    const grid = document.getElementById('products-grid');
+    grid.innerHTML = PRODUCTS.map(buildCard).join('');
+
+    // ── Filter logic ───────────────────────────────────────────
+    function filterProducts(cat) {
+      document.querySelectorAll('.product-card').forEach(card => {
+        if (cat === 'all' || card.dataset.cat === cat) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.cat === cat);
+      });
+    }
+
+    function scrollToProducts() {
+      document.getElementById('products').scrollIntoView({ behavior:'smooth' });
+    }
+
+    // ── Navbar scroll ──────────────────────────────────────────
+    window.addEventListener('scroll', () => {
+      document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40);
+    });
+
+    // ── Mobile hamburger ───────────────────────────────────────
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    menuBtn.addEventListener('click', () => {
+      menuBtn.classList.toggle('open');
+      mobileMenu.classList.toggle('hidden');
+    });
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', () => {
+        menuBtn.classList.remove('open');
+        mobileMenu.classList.add('hidden');
+      });
+    });
+  </script>
+</body>
+</html>
